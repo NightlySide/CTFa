@@ -1,4 +1,4 @@
-package io.nightlyside.enstabretagne.ctfa;
+package io.nightlyside.enstabretagne.ctfa.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,11 +15,6 @@ public class NavigationController {
     @GetMapping({"/users", "/users.html"})
     public String users() {
         return "users";
-    }
-
-    @GetMapping("/users/{id}")
-    public String showUser(@PathVariable Long id) {
-        return "show_user";
     }
 
     @GetMapping("/teams/{id}")
