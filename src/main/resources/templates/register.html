@@ -1,0 +1,43 @@
+<!doctype html>
+<!-- Inspiration : https://demo.ctfd.io/ -->
+<html lang="fr"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layouts/main_layout">
+  <body>
+
+    <div layout:fragment="jumbotron">
+      <div class="jumbotron">
+          <div class="container">
+              <h1>Register</h1>
+          </div>
+      </div>
+    </div>
+     
+    <!-- Main container -->
+    <div layout:fragment="content" class="container">
+
+       <div class="row">
+           <form class="col-sm-12 col-md-6 offset-md-3">
+            <div class="form-group">
+                <label for="usernameInput">Username</label>
+                <input type="text" class="form-control" id="usernameInput" aria-describedby="usernameHelp">
+                <small id="usernameHelp" class="form-text text-muted">Your username on this site.</small>
+            </div>
+            <div class="form-group">
+                <label for="emailInput">Email address</label>
+                <input type="email" class="form-control" id="emailInput" aria-describedby="emailHelp">
+                <small id="emailHelp" class="form-text text-muted">Never shown in the public.</small>
+            </div>
+            <div class="form-group">
+                <label for="passwordInput">Password</label>
+                <input type="password" class="form-control" id="passwordInput" aria-describedby="passwordHelp">
+                <small id="passwordHelp" class="form-text text-muted">Password used to log into your account.</small>
+            </div>
+            <button type="submit" class="btn btn-primary float-right">Submit</button>
+           </form>
+       </div>
+
+    </div>
+  </body>
+</html>

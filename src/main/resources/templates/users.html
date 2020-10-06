@@ -1,0 +1,77 @@
+<!doctype html>
+<!-- Inspiration : https://demo.ctfd.io/ -->
+<html lang="fr"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layouts/main_layout">
+  <body>
+
+    <div layout:fragment="jumbotron">
+      <div class="jumbotron">
+          <div class="container">
+              <h1>Users</h1>
+          </div>
+      </div>
+    </div>
+
+    <!-- Main container -->
+    <div layout:fragment="content" class="container">
+
+        <div class="row">
+            <form class="col-sm-12">
+                <div class="form-row">
+                    <div class="col-md-2">
+                        <select class="custom-select">
+                            <option value="name" selected>Name</option>
+                            <option value="team">Team</option>
+                        </select>
+                    </div>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" placeholder="Search for matching users">
+                    </div>
+                    <div class="col-md-2">
+                        <a class="form-control btn btn-primary"><i class="fa fa-search"></i></a>
+                    </div>
+                </div>
+            </form>
+        </div>
+        
+        <hr>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <table class="table table-striped table-bordered table-hover">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Username</th>
+                            <th scope="col">Team</th>
+                            <th scope="col">User Score</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>Nightlyside</td>
+                            <td>ENS7UXNET</td>
+                            <td>1875</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">2</th>
+                            <td>Sytrics</td>
+                            <td>ENS7UXNET</td>
+                            <td>1250</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">3</th>
+                            <td>Cookiehacker</td>
+                            <td>FWORD</td>
+                            <td>805</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+  </body>
+</html>

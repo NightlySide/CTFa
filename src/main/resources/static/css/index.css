@@ -1,0 +1,48 @@
+@font-face {
+    font-family: "Hacked";
+    src: url("/webfonts/HACKED.ttf") format("truetype");
+}
+
+body {
+    background-color: rgb(250, 250, 250);
+}
+
+.jumbotron {
+    background-color: #343a40;
+    color: rgb(250, 250, 250);
+    text-align: center;
+    border-radius: 0;
+}
+
+nav .login-nav li{
+    margin: 0 5px;
+}
+
+nav .login-nav i{
+    margin-right: 5px;
+}
+
+.navbar-brand {
+    font-size: 1.5em;
+}
+
+#countdown-timer {
+    text-align: center;
+    font-size: 4em;
+    font-family: Hacked;
+}
+
+footer {
+    color: rgb(97, 97, 97);
+}
+
+footer a {
+    color: rgb(97, 97, 97);
+    margin-left: 5px;
+}
+
+footer a:hover {
+    text-decoration: none;
+    color: rgb(50, 50, 50);
+}
+

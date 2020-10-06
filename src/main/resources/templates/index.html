@@ -1,0 +1,45 @@
+<!doctype html>
+<!-- Inspiration : https://demo.ctfd.io/ -->
+<html lang="fr"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layouts/main_layout">
+  <body>
+     
+    <div layout:fragment="jumbotron"></div>
+
+    <!-- Main container -->
+    <div class="container" layout:fragment="content">
+        <div class="row">
+
+          <div class="col-md-8 offset-md-2 col-sm-12">
+            <img class="w-100" src="assets/ctf_logo.png">
+          </div>
+
+          <div class="col-sm-12">
+            <p>Ceci est le site de démonstration de la plateforme CTFa, un clone open source et gratuit du célèbre outil de gestion d'évènement CTF : <a href="https://ctfd.io/" target="_blank">CTFd</a>.</p>
+          </div>
+
+          <div class="col-sm-12">
+            Le CTF n'a pas encore commencé, veuillez vous référer au timer ci dessous.
+          </div>
+          
+          <!-- Insérer timer ici -->
+          <div class="col-sm-12">
+            <div id="countdown-timer" class="col-sm-12">
+              0d 0h 0m 0s
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Notification -->
+        <div class="alert alert-info alert-dismissible fade show" role="alert">
+            <strong>Attention!</strong> Le site est actuellement en cours de développement intense.<br>Attendez vous à rencontrer des bugs et autres créatures étrange !
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </div>
+  </body>
+</html>
