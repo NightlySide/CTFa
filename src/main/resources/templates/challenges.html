@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="fr"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/main_layout}">
+<head>
+    <title>Challenges | CTFa</title>
+</head>
+<body>
+
+<div layout:fragment="jumbotron">
+    <div class="jumbotron">
+        <div class="container">
+            <h1>Challenges</h1>
+        </div>
+    </div>
+</div>
+
+<!-- Main container -->
+<div layout:fragment="content" class="container">
+
+    <div class="row pt-5" th:each="category : ${categories}">
+        <div class="category-title">
+            <h3 th:text="${category.getName()}">Category title</h3>
+        </div>
+        <div class="challenges-row col-md-12">
+            <div class="col-md-3 d-inline-block" th:each="challenge : ${challRepo.findAllByCategoryIdEquals(category.getId())}">
+                <button
+                        data-toggle="modal"
+                        data-target="#challenge-window"
+                        th:attr="data-id=${challenge.getId()}"
+                        class="btn btn-dark challenge-button w-100 text-truncate pt-3 mb-2">
+                    <p th:text="${challenge.getTitle()}">Challenge name</p>
+                    <span th:text="${challenge.getScore()}">100</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Spacer -->
+    <div class="mb-5"></div>
+
+    <!-- Challenge window -->
+    <div class="modal fade" id="challenge-window" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="challenge-window-title" style="font-weight: bold">Modal title</h5>
+                    <h5 class="modal-title" style="margin: 0 0.4em;"> - <em>Score : </em></h5>
+                    <h5 class="modal-title" id="challenge-window-score" style="font-style: italic">100</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="challenge-window-body">
+                    Description of the challenge ...
+                </div>
+                <div class="modal-body" id="challenge-file-download">
+                    <a class="btn btn-info btn-file mb-1 d-inline-block px-2 w-100 text-truncate" href="http://google.fr">
+                        <i class="fa fa-download"></i>
+                        <small>filename.jpg</small>
+                    </a>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div layout:fragment="scripts">
+    <script th:src="@{/js/showdown.min.js}"></script>
+    <script th:src="@{/js/challenges.js}"></script>
+</div>
+</body>
+</html>

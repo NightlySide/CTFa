@@ -1,9 +1,9 @@
 <!doctype html>
 <!-- Inspiration : https://demo.ctfd.io/ -->
 <html lang="fr"
-      xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorator="layouts/main_layout">
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      layout:decorate="~{layouts/main_layout}">
   <head>
     <title>CTFa | A plateform to manage and organize jeopardy-style CTF</title>
   </head>
@@ -26,6 +26,20 @@
           <div class="col-sm-12">
             Le CTF n'a pas encore commencé, veuillez vous référer au timer ci dessous.
           </div>
+
+          <!-- SECURITY TEST -->
+            <div sec:authorize="isAuthenticated()">
+                This content is only shown to authenticated users.
+            </div>
+            <div sec:authorize="hasRole('ADMIN')">
+                This content is only shown to administrators.
+            </div>
+            <div sec:authorize="hasRole('USER')">
+                This content is only shown to users.
+            </div>
+            <div sec:authorize="!isAuthenticated()">
+                Vous n'etes pas connecté.
+            </div>
           
           <!-- Insérer timer ici -->
           <div class="col-sm-12">

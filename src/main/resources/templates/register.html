@@ -3,7 +3,7 @@
 <html lang="fr"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorator="layouts/main_layout">
+      layout:decorate="~{layouts/main_layout}">
   <head>
     <title>Register | CTFa</title>
   </head>
@@ -16,25 +16,38 @@
           </div>
       </div>
     </div>
-     
+
     <!-- Main container -->
     <div layout:fragment="content" class="container">
 
+        <div class="row">
+
+        </div>
+
        <div class="row">
-           <form class="col-sm-12 col-md-6 offset-md-3">
+        <form class="col-sm-12 col-md-6 offset-md-3" th:action="@{/users/save}" th:object="${user}" method="post">
+            <div th:if="${param.success}" class="alert alert-info">
+               Vous vous êtes bien enregistré ! Vous pouvez à présent vous connecter.
+            </div>
+
+            <div class="alert alert-danger"
+                th:if="${#fields.hasErrors('*')}">
+               <p th:each="err : ${#fields.errors('*')}" th:text="${err}">Validation error</p>
+            </div>
+
             <div class="form-group">
                 <label for="usernameInput">Username</label>
-                <input type="text" class="form-control" id="usernameInput" aria-describedby="usernameHelp">
+                <input type="text" class="form-control" id="usernameInput" aria-describedby="usernameHelp" th:field="*{username}">
                 <small id="usernameHelp" class="form-text text-muted">Your username on this site.</small>
             </div>
             <div class="form-group">
                 <label for="emailInput">Email address</label>
-                <input type="email" class="form-control" id="emailInput" aria-describedby="emailHelp">
+                <input type="email" class="form-control" id="emailInput" aria-describedby="emailHelp" th:field="*{email}">
                 <small id="emailHelp" class="form-text text-muted">Never shown in the public.</small>
             </div>
             <div class="form-group">
                 <label for="passwordInput">Password</label>
-                <input type="password" class="form-control" id="passwordInput" aria-describedby="passwordHelp">
+                <input type="password" class="form-control" id="passwordInput" aria-describedby="passwordHelp" th:field="*{password}">
                 <small id="passwordHelp" class="form-text text-muted">Password used to log into your account.</small>
             </div>
             <button type="submit" class="btn btn-primary float-right">Submit</button>

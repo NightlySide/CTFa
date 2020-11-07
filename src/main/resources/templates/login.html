@@ -3,7 +3,7 @@
 <html lang="fr"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorator="layouts/main_layout">
+      layout:decorate="~{layouts/main_layout}">
   <head>
     <title>Login | CTFa</title>
   </head>
@@ -21,14 +21,25 @@
     <div layout:fragment="content" class="container">
 
        <div class="row">
-           <form class="col-sm-12 col-md-6 offset-md-3">
+           <form class="col-sm-12 col-md-6 offset-md-3" th:action="@{/login}" method="post">
+
+            <!-- show notification on error -->
+            <div th:if="${param.error}" class="alert alert-danger">
+                Mauvaise combinaison username/password.
+            </div>
+
+            <!-- show notification of logout -->
+            <div th:if="${param.logout}" class="alert alert-info">
+                Vous vous êtes bien déconnecté.
+            </div>
+
             <div class="form-group">
-                <label for="usernameInput">Username or email</label>
-                <input type="text" class="form-control" id="usernameInput">
+                <label for="username">Username or email</label>
+                <input name="username" type="text" class="form-control" id="username" th:required="required">
             </div>
             <div class="form-group">
-                <label for="passwordInput">Password</label>
-                <input type="password" class="form-control" id="passwordInput">
+                <label for="password">Password</label>
+                <input name="password" type="password" class="form-control" id="password" th:required="required">
             </div>
             <a href="#" class="float-left">Forgot your<br> password?</a>
             <button type="submit" class="btn btn-primary float-right">Submit</button>

@@ -3,7 +3,7 @@
 <html lang="fr"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorator="layouts/main_layout">
+      layout:decorate="~{layouts/main_layout}">
   <head>
     <title>Teams | CTFa</title>
   </head>
@@ -52,23 +52,11 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>ENS7UXNET</td>
-                            <td>2</td>
-                            <td>2650</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>FWORD</td>
-                            <td>1</td>
-                            <td>805</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">3</th>
-                            <td>Other</td>
-                            <td>0</td>
-                            <td>0</td>
+                        <tr th:each="team : ${teams}">
+                            <td scope="row" th:text="${team.getId()}"></td>
+                            <td th:text="${team.getTeamname()}"></td>
+                            <td th:text="${usersRepo.findByTeamIdEquals(team.getId()).size()}"></td>
+                            <td th:text="${team.getScore(usersRepo, challRepo)}">0</td> <!-- user score -->
                         </tr>
                     </tbody>
                 </table>
