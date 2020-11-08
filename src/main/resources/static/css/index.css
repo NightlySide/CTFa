@@ -34,6 +34,12 @@ nav .login-nav i{
 
 footer {
     color: rgb(97, 97, 97);
+    position: absolute;
+    bottom: 1px;
+    width: 100%;
+    height: 60px;
+    line-height: 60px;
+    z-index: -20;
 }
 
 footer a {

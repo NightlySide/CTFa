@@ -68,6 +68,8 @@ public class UserController {
         // Puis on calcule son mot de passe
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder(4);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        // Puis on lui donne son role
+        user.setRole("ROLE_USER");
 
         System.out.println(user.toString());
 

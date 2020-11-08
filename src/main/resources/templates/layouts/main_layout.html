@@ -29,29 +29,37 @@
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-      
+
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
+            <li class="nav-item" th:classappend="${currentPage == 'users'}?active">
               <a class="nav-link" th:href="@{/users}">Users</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" th:classappend="${currentPage == 'teams'}?active">
               <a class="nav-link" th:href="@{/teams}">Teams</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" th:classappend="${currentPage == 'scoreboard'}?active">
               <a class="nav-link" href="#">Scoreboard</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" th:classappend="${currentPage == 'challenges'}?active">
               <a class="nav-link" th:href="@{/challenges}">Challenges</a>
             </li>
           </ul>
           
           <ul class="navbar-nav login-nav">
+            <!-- If not authenticated -->
             <li class="nav-item" sec:authorize="!isAuthenticated()">
               <a class="btn btn-outline-secondary nav-link" th:href="@{/register}"><i class="fa fa-user-plus"></i>Register</a>
             </li>
             <li class="nav-item" sec:authorize="!isAuthenticated()">
               <a class="btn btn-outline-secondary nav-link" th:href="@{/login}"><i class="fa fa-sign-in-alt"></i>Login</a>
+            </li>
+            <!-- If authenticated -->
+            <li class="nav-item" sec:authorize="isAuthenticated()">
+              <a class="btn nav-link" th:href="@{/team}" th:classappend="${currentPage == 'team'}?active"><i class="fa fa-users"></i>Team</a>
+            </li>
+            <li class="nav-item" sec:authorize="isAuthenticated()">
+              <a class="btn nav-link" th:href="@{/user}" th:classappend="${currentPage == 'user'}?active"><i class="fa fa-user-circle"></i>Profile</a>
             </li>
             <li class="nav-item" sec:authorize="isAuthenticated()">
               <a class="btn btn-outline-secondary nav-link" th:href="@{/logout}"><i class="fa fa-sign-out-alt"></i>Logout</a>

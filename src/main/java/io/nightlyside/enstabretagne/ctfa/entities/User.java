@@ -77,6 +77,17 @@ public class User {
         this.teamId = teamId;
     }
 
+    public boolean isInATeam() {
+        return teamId != null;
+    }
+
+    public Integer getSolvedChallengesCount() {
+        if (solvedChallenges == null || solvedChallenges.equals(""))
+            return 0;
+        else
+            return solvedChallenges.split(",").length;
+    }
+
     @Override
     public String toString() {
         return "User{" +

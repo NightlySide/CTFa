@@ -46,8 +46,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         // h2 authorisation
-        http.authorizeRequests().antMatchers("/h2-console/**").permitAll()
-            .and().csrf().ignoringAntMatchers("/h2-console/**")
+        http.authorizeRequests().antMatchers("/h2/**").permitAll()
+            .and().csrf().ignoringAntMatchers("/h2/**")
             .and().headers().frameOptions().sameOrigin();
 
         // on autorise le contenu statique
@@ -57,7 +57,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .authorizeRequests()
             .antMatchers("/", "/users", "/users/save", "/teams", "/register").permitAll()
             .antMatchers("/admin/**").hasRole("ADMIN")
-                .antMatchers("/challenges").hasAnyRole("USER", "ADMIN")
+                .antMatchers("/challenges", "/user", "/team").hasAnyRole("USER", "ADMIN")
                 .anyRequest().authenticated()
                 .and()
             .formLogin()
@@ -65,6 +65,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .and()
             .logout()
-                .permitAll();
+                .deleteCookies("JSESSIONID")
+                .permitAll()
+                .and()
+            .rememberMe()
+                .key("my-beautiful-ctfa")
+                .tokenValiditySeconds(60 * 60); // valide pour 1h
     }
 }

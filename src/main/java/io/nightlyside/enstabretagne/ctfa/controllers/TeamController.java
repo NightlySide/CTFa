@@ -28,7 +28,7 @@ public class TeamController {
         model.addAttribute("teams", teamRepository.findAll());
         model.addAttribute("usersRepo", userRepository);
         model.addAttribute("challRepo", challengeRepository);
-        return "teams";
+        return "teams/list";
     }
 
     @GetMapping("/all")
@@ -39,5 +39,15 @@ public class TeamController {
     @GetMapping("{id}")
     public @ResponseBody Team getTeam(@PathVariable Integer id) {
         return teamRepository.findById(id).get();
+    }
+
+    @GetMapping("/join")
+    public String joinTeam(Model model) {
+        return "teams/join";
+    }
+
+    @GetMapping("/create")
+    public String createTeam(Model model) {
+        return "teams/create";
     }
 }

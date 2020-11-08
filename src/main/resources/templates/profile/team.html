@@ -1,0 +1,45 @@
+<!doctype html>
+<!-- Inspiration : https://demo.ctfd.io/ -->
+<html lang="fr"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/main_layout}"
+      th:with="currentPage='team'">
+<head>
+    <title>Team | CTFa</title>
+</head>
+<body>
+
+<div layout:fragment="jumbotron">
+    <div class="jumbotron">
+        <div class="container">
+            <h1>Team</h1>
+        </div>
+    </div>
+</div>
+
+<!-- Main container -->
+<div layout:fragment="content" class="container">
+
+    <div th:if="${user.isInATeam()}">
+        Vous êtes déjà dans une equipe
+    </div>
+
+    <!-- If not already in a team -->
+    <div class="row" th:if="${!user.isInATeam()}">
+        <div class="col-md-6 offset-md-3 text-center">
+            <p>Bienvenue sur CTFa!</p>
+            <p>Afin de participer vous devez rejoindre une équipe.</p>
+        </div>
+    </div>
+    <div class="row pt-3 pb-5" th:if="${!user.isInATeam()}">
+        <div class="col-md-3 offset-md-3 text-center">
+            <a class="btn btn-primary w-100" th:href="@{/teams/join}">Rejoindre une équipe</a>
+        </div>
+        <div class="col-md-3 text-center">
+            <a class="btn btn-primary w-100" th:href="@{/teams/create}">Créer une équipe</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>
