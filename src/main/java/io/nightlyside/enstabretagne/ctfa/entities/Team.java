@@ -1,6 +1,7 @@
 package io.nightlyside.enstabretagne.ctfa.entities;
 
 import io.nightlyside.enstabretagne.ctfa.repositories.ChallengeRepository;
+import io.nightlyside.enstabretagne.ctfa.repositories.ChallengeSolveRepository;
 import io.nightlyside.enstabretagne.ctfa.repositories.UserRepository;
 
 import javax.persistence.*;
@@ -31,12 +32,16 @@ public class Team {
     public boolean isOpenToRegister() { return openToRegister; }
     public void setOpenToRegister(boolean openToRegister) { this.openToRegister = openToRegister; }
 
-    public Integer getScore(UserRepository userRepository, ChallengeRepository challengeRepository) {
+    public Integer getScore(UserRepository userRepository, ChallengeSolveRepository challengeSolveRepository, ChallengeRepository challengeRepository) {
         int score = 0;
         for (User user : userRepository.findByTeamIdEquals(id)) {
-            score += user.getScore(challengeRepository);
+            score += user.getScore(challengeSolveRepository, challengeRepository);
         }
         return score;
+    }
+
+    public List<User> getTeamMembers(UserRepository userRepository) {
+        return userRepository.findByTeamIdEquals(this.getId());
     }
 
     @Override

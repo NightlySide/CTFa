@@ -13,7 +13,13 @@
 <div layout:fragment="jumbotron">
     <div class="jumbotron">
         <div class="container">
-            <h1>Team</h1>
+            <h1 th:text="${user.getUsername()}">Username</h1>
+            <h2><a th:href="@{/team}"><span class="badge badge-secondary" th:text="${user.getTeamName(teamRepo)}">teamName</span></a></h2>
+
+            <div th:if="${user.getScore(challSolveRepo, challRepo) != 0}">
+                <h2 class="text-center"><span th:text="${user.getRankPresentation(userRepo, challSolveRepo, challRepo)}"></span> <small>place</small></h2>
+                <h2 class="text-center"><span th:text="${user.getScore(challSolveRepo, challRepo)}">50</span> <small>points</small></h2>
+            </div>
         </div>
     </div>
 </div>
@@ -21,25 +27,34 @@
 <!-- Main container -->
 <div layout:fragment="content" class="container">
 
-    <div th:if="${user.isInATeam()}">
-        Vous êtes déjà dans une equipe
+    <div class="row" th:if="${user.getScore(challSolveRepo, challRepo) == 0}">
+        <h3 class="opacity-50 text-center w-100 justify-content-center align-self-center">
+            No solves yet
+        </h3>
     </div>
 
-    <!-- If not already in a team -->
-    <div class="row" th:if="${!user.isInATeam()}">
-        <div class="col-md-6 offset-md-3 text-center">
-            <p>Bienvenue sur CTFa!</p>
-            <p>Afin de participer vous devez rejoindre une équipe.</p>
+    <div class="row" th:if="${user.getScore(challSolveRepo, challRepo) != 0}">
+        <div class="col-12">
+            <table class="table table-striped table-bordered table-hover">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Challenge Name</th>
+                        <th scope="col">Flagged Date</th>
+                        <th scope="col">Score</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Triés par date décroissante -->
+                    <tr th:each="solve : ${challSolveRepo.findAllByUserIdEquals(user.getId())}">
+                        <td scope="row" th:text="${challRepo.findById(solve.getId()).getTitle()}">Challenge name</td>
+                        <td th:text="${solve.getPrettyDate()}">20 mars 2020 - 18:05</td>
+                        <td th:text="${challRepo.findById(solve.getId()).getScore()}">150</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
-    <div class="row pt-3 pb-5" th:if="${!user.isInATeam()}">
-        <div class="col-md-3 offset-md-3 text-center">
-            <a class="btn btn-primary w-100" th:href="@{/teams/join}">Rejoindre une équipe</a>
-        </div>
-        <div class="col-md-3 text-center">
-            <a class="btn btn-primary w-100" th:href="@{/teams/create}">Créer une équipe</a>
-        </div>
-    </div>
+
 </div>
 </body>
 </html>

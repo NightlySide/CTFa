@@ -13,7 +13,7 @@
 <div layout:fragment="jumbotron">
     <div class="jumbotron">
         <div class="container">
-            <h1>Team</h1>
+            <h1 th:text="${team.getTeamname()}">Teamname</h1>
         </div>
     </div>
 </div>
@@ -21,8 +21,26 @@
 <!-- Main container -->
 <div layout:fragment="content" class="container">
 
-    <div th:if="${user.isInATeam()}">
-        Vous êtes déjà dans une equipe
+    <div th:if="${user.isInATeam()}" class="row">
+        <div class="col-12">
+            <h3>Members</h3>
+        </div>
+        <div class="col-12">
+            <table class="table table-striped table-bordered table-hover">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Username</th>
+                        <th scope="col">User score</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="member : ${team.getTeamMembers(userRepo)}">
+                        <td scope="row" th:text="${member.getUsername()}">Username</td>
+                        <td th:text="${member.getScore(challSolveRepo, challRepo)}">Score</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 
     <!-- If not already in a team -->

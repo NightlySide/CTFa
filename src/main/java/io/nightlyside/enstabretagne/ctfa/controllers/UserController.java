@@ -1,7 +1,9 @@
 package io.nightlyside.enstabretagne.ctfa.controllers;
 
+import io.nightlyside.enstabretagne.ctfa.entities.ChallengeSolve;
 import io.nightlyside.enstabretagne.ctfa.entities.User;
 import io.nightlyside.enstabretagne.ctfa.repositories.ChallengeRepository;
+import io.nightlyside.enstabretagne.ctfa.repositories.ChallengeSolveRepository;
 import io.nightlyside.enstabretagne.ctfa.repositories.TeamRepository;
 import io.nightlyside.enstabretagne.ctfa.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,12 +29,15 @@ public class UserController {
     private TeamRepository teamRepository;
     @Autowired
     private ChallengeRepository challengeRepository;
+    @Autowired
+    private ChallengeSolveRepository challengeSolveRepository;
 
     @GetMapping({"/", "", "/index.html", "/index"})
     public String users(Model model) {
         model.addAttribute("users", userRepository.findAll());
         model.addAttribute("teamsRepo", teamRepository);
         model.addAttribute("challRepo", challengeRepository);
+        model.addAttribute("challSolveRepo", challengeSolveRepository);
         return "users";
     }
 

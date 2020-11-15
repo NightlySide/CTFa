@@ -49,15 +49,27 @@ CREATE TABLE `users` (
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `role` varchar(25) DEFAULT 'ROLE_USER',
-  `team_id` int(11),
-  `solved_challenges` varchar(1000)
+  `team_id` int(11)
 );
 
-INSERT INTO `users` (`id`, `username`, `email`, `password`, `team_id`, `role`, `solved_challenges`) VALUES
-    (0, 'nightlyside', 'nightlyside@gmail.com', '$2y$04$EsY8t/oioAf4wUNzAxYqpOE3vXjT8lzNxpwWiDFtlIYZpviv/e00y', 0, 'ROLE_ADMIN', '0,1,3'),
-    (1, 'sytrics', 'sytrics@gmail.com', '$2y$04$EsY8t/oioAf4wUNzAxYqpOE3vXjT8lzNxpwWiDFtlIYZpviv/e00y', 0, 'ROLE_ADMIN', '1'),
-    (2, 'face0ff', 'faceoff@gmail.com', '$2y$04$EsY8t/oioAf4wUNzAxYqpOE3vXjT8lzNxpwWiDFtlIYZpviv/e00y', 1, 'ROLE_USER', ''),
-    (3, 'franz', 'francois.schmidt@gmail.com', '$2y$04$EsY8t/oioAf4wUNzAxYqpOE3vXjT8lzNxpwWiDFtlIYZpviv/e00y', 1, 'ROLE_USER', '2');
+INSERT INTO `users` (`id`, `username`, `email`, `password`, `team_id`, `role`) VALUES
+    (0, 'nightlyside', 'nightlyside@gmail.com', '$2y$04$EsY8t/oioAf4wUNzAxYqpOE3vXjT8lzNxpwWiDFtlIYZpviv/e00y', 0, 'ROLE_ADMIN'),
+    (1, 'sytrics', 'sytrics@gmail.com', '$2y$04$EsY8t/oioAf4wUNzAxYqpOE3vXjT8lzNxpwWiDFtlIYZpviv/e00y', 0, 'ROLE_ADMIN'),
+    (2, 'face0ff', 'faceoff@gmail.com', '$2y$04$EsY8t/oioAf4wUNzAxYqpOE3vXjT8lzNxpwWiDFtlIYZpviv/e00y', 1, 'ROLE_USER'),
+    (3, 'franz', 'francois.schmidt@gmail.com', '$2y$04$EsY8t/oioAf4wUNzAxYqpOE3vXjT8lzNxpwWiDFtlIYZpviv/e00y', 1, 'ROLE_USER');
+
+-- challengesSolves
+DROP TABLE IF EXISTS `challenge_solves`;
+CREATE TABLE `challenge_solves` (
+    `id` int(11) AUTO_INCREMENT NOT NULL,
+    `user_id` int(11) NOT NULL,
+    `challenge_id` int(11) NOT NULL,
+    `date` timestamp NOT NULL
+);
+
+INSERT INTO `challenge_solves` (`id`, `user_id`, `challenge_id`, `date`) VALUES
+    (0, 0, 0, '2020-03-20 12:45:00'),
+    (1, 0, 2, '2020-03-21 05:15:15');
 
 -- INDEXES
 
@@ -76,3 +88,8 @@ ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 ALTER TABLE `users`
   ADD UNIQUE KEY `username` (`username`);
+
+ALTER TABLE `challenge_solves`
+    ADD PRIMARY KEY (`id`);
+ALTER TABLE `challenge_solves`
+    ADD UNIQUE KEY (`user_id`, `challenge_id`);

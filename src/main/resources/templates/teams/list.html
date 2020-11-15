@@ -57,7 +57,7 @@
                             <td scope="row" th:text="${team.getId()}"></td>
                             <td th:text="${team.getTeamname()}"></td>
                             <td th:text="${usersRepo.findByTeamIdEquals(team.getId()).size()}"></td>
-                            <td th:text="${team.getScore(usersRepo, challRepo)}">0</td> <!-- user score -->
+                            <td th:text="${team.getScore(usersRepo, challSolveRepo, challRepo)}">0</td> <!-- user score -->
                         </tr>
                     </tbody>
                 </table>
