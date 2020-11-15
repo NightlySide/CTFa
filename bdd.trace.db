@@ -1,0 +1,8 @@
+2020-11-15 22:03:12 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLDataException: Erreur lors de la conversion de données "'' (USERS: ""TEAM_ID"" INT)"
+Data conversion error converting "'' (USERS: ""TEAM_ID"" INT)"; SQL statement:
+UPDATE "PUBLIC"."USERS" SET "ID"=? ,"USERNAME"=? ,"EMAIL"=? ,"PASSWORD"=? ,"ROLE"=? ,"TEAM_ID"=?  WHERE "ID"=? [22018-200]
+2020-11-15 22:03:12 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLDataException: Erreur lors de la conversion de données "'' (USERS: ""TEAM_ID"" INT)"
+Data conversion error converting "'' (USERS: ""TEAM_ID"" INT)"; SQL statement:
+UPDATE "PUBLIC"."USERS" SET "ID"=? ,"USERNAME"=? ,"EMAIL"=? ,"PASSWORD"=? ,"ROLE"=? ,"TEAM_ID"=?  WHERE "ID"=? [22018-200]

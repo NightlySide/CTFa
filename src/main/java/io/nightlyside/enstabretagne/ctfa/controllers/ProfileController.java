@@ -2,6 +2,7 @@ package io.nightlyside.enstabretagne.ctfa.controllers;
 
 import io.nightlyside.enstabretagne.ctfa.UserDetailsImpl;
 import io.nightlyside.enstabretagne.ctfa.entities.ChallengeSolve;
+import io.nightlyside.enstabretagne.ctfa.entities.Team;
 import io.nightlyside.enstabretagne.ctfa.entities.User;
 import io.nightlyside.enstabretagne.ctfa.repositories.ChallengeRepository;
 import io.nightlyside.enstabretagne.ctfa.repositories.ChallengeSolveRepository;
@@ -31,9 +32,12 @@ public class ProfileController {
         User loggedUser = loggedUserDetails.getUser();
         model.addAttribute("user", loggedUser);
         model.addAttribute("userRepo", userRepository);
-        model.addAttribute("team", teamRepository.findById(loggedUser.getTeamId()).get());
         model.addAttribute("challRepo", challRepo);
         model.addAttribute("challSolveRepo", challengeSolveRepository);
+        if (loggedUser.getTeamId() != null && teamRepository.findById(loggedUser.getTeamId()).isPresent())
+            model.addAttribute("team", teamRepository.findById(loggedUser.getTeamId()).get());
+        else
+            model.addAttribute("team", new Team());
         return "profile/team";
     }
 

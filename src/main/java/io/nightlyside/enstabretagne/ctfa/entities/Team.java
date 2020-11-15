@@ -5,6 +5,8 @@ import io.nightlyside.enstabretagne.ctfa.repositories.ChallengeSolveRepository;
 import io.nightlyside.enstabretagne.ctfa.repositories.UserRepository;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @Entity
@@ -12,10 +14,13 @@ import java.util.List;
 public class Team {
 
     @Id
-    @GeneratedValue
     private Integer id;
 
+    @NotBlank(message="Un nom d'équipe est obligatoire")
+    @Size(min=2, max=40, message = "Le nom de team doit être compris entre 2 et 40 caractères")
     private String teamname;
+    @NotBlank(message = "Un mot de passe est obligatoire")
+    @Size(min=6, message = "Le mot de passe doit faire minimum 6 caractères")
     private String password;
     @Column(name="open_to_register")
     private boolean openToRegister;

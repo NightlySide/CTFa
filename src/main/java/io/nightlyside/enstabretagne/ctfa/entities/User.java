@@ -16,7 +16,6 @@ import javax.validation.constraints.Size;
 public class User {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer id;
 
     @NotBlank(message = "Le nom d'utilisateur est obligatoire")

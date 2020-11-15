@@ -38,8 +38,8 @@ CREATE TABLE `teams` (
 );
 
 INSERT INTO `teams` (`id`, `teamname`, `password`, `open_to_register`) VALUES
-    (0, 'ENS7UXN3T', '25f9e794323b453885f5181f1b624d0b', 1),
-    (1, 'F''WORD', 'sqjmdjmq45675qd', 1);
+    (0, 'ENS7UXN3T', '$2y$04$EsY8t/oioAf4wUNzAxYqpOE3vXjT8lzNxpwWiDFtlIYZpviv/e00y', 1),
+    (1, 'F''WORD', '$2y$04$EsY8t/oioAf4wUNzAxYqpOE3vXjT8lzNxpwWiDFtlIYZpviv/e00y', 1);
 
 -- users
 DROP TABLE IF EXISTS `users`;

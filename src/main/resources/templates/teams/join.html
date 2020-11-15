@@ -21,7 +21,29 @@
 <!-- Main container -->
 <div layout:fragment="content" class="container">
 
-    <div class="row"></div>
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <form th:action="@{/teams/join}" th:object="${team}" method="post">
+                <!-- show notification on error -->
+                <div class="alert alert-danger"
+                     th:if="${#fields.hasErrors('*')}">
+                    <p th:each="err : ${#fields.errors('*')}" th:text="${err}">Validation error</p>
+                </div>
+
+                <div class="form-group">
+                    <b><label for="team_name">Team Name</label></b>
+                    <input id="team_name" class="form-control" name="team_name" type="text" value="" th:field="*{teamname}">
+                </div>
+                <div class="form-group">
+                    <b><label for="password">Team Password</label></b>
+                    <input id="password" class="form-control" name="password" type="password" value="" th:field="*{password}">
+                </div>
+                <div class="form-group mt-3">
+                    <input type="submit" class="btn btn-primary float-right pr-4 pl-4" name="submit" value="Join">
+                </div>
+            </form>
+        </div>
+    </div>
 
 </div>
 </body>
