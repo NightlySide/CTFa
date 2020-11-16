@@ -100,7 +100,10 @@ public class User {
 
         int score = 0;
         for (ChallengeSolve challengeSolve : challengeSolveRepository.findAllByUserIdEquals(this.getId())) {
-            score += challengeRepository.findById(challengeSolve.getId()).get().getScore();
+            if (challengeRepository.findById(challengeSolve.getChallengeId()).isPresent())
+                score += challengeRepository.findById(challengeSolve.getChallengeId()).get().getScore();
+            else
+                System.out.println(String.format("Challenge not found for user : %s and Challenge id : %d", getUsername(), challengeSolve.getChallengeId()));
         }
         return score;
     }

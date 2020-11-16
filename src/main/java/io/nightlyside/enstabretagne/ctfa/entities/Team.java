@@ -2,12 +2,18 @@ package io.nightlyside.enstabretagne.ctfa.entities;
 
 import io.nightlyside.enstabretagne.ctfa.repositories.ChallengeRepository;
 import io.nightlyside.enstabretagne.ctfa.repositories.ChallengeSolveRepository;
+import io.nightlyside.enstabretagne.ctfa.repositories.TeamRepository;
 import io.nightlyside.enstabretagne.ctfa.repositories.UserRepository;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-import java.util.List;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 @Entity
 @Table(name = "teams")
@@ -39,14 +45,60 @@ public class Team {
 
     public Integer getScore(UserRepository userRepository, ChallengeSolveRepository challengeSolveRepository, ChallengeRepository challengeRepository) {
         int score = 0;
-        for (User user : userRepository.findByTeamIdEquals(id)) {
+        for (User user : this.getTeamMembers(userRepository)) {
             score += user.getScore(challengeSolveRepository, challengeRepository);
         }
         return score;
     }
 
+    public Integer getRank(TeamRepository teamRepository, UserRepository userRepository, ChallengeSolveRepository challengeSolveRepository, ChallengeRepository challengeRepository) {
+        int teamScore = getScore(userRepository, challengeSolveRepository, challengeRepository);
+        int rank = 1;
+        for (Team t : teamRepository.findAll()) {
+            if (!t.getId().equals(this.getId())) {
+                if (t.getScore(userRepository, challengeSolveRepository, challengeRepository) > teamScore) {
+                    rank++;
+                }
+            }
+        }
+        return rank;
+    }
+
+    public JSONArray getJsonChallengeSolve(UserRepository userRepository, ChallengeSolveRepository challengeSolveRepository, ChallengeRepository challengeRepository) {
+        int incrementalScore = 0;
+        JSONArray points = new JSONArray();
+
+        List<ChallengeSolve> solves = challengeSolveRepository.findAllByUserIdIn(this.getTeamMembersId(userRepository));
+        solves.sort((s1, s2) -> {
+            if (s1.getDate().isBefore(s2.getDate())) return -1;
+            if (s1.getDate().isAfter(s2.getDate())) return 1;
+            return 0;
+        });
+
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy - HH:mm");
+
+        for (ChallengeSolve solve : solves) {
+            Challenge chall = challengeRepository.findById(solve.getChallengeId()).get();
+            incrementalScore += chall.getScore();
+            JSONObject obj = new JSONObject();
+            obj.put("t", format.format(solve.getDate()));
+            obj.put("x", chall.getTitle());
+            obj.put("y", incrementalScore);
+            points.put(obj);
+        }
+
+        return points;
+    }
+
     public List<User> getTeamMembers(UserRepository userRepository) {
         return userRepository.findByTeamIdEquals(this.getId());
+    }
+
+    public List<Integer> getTeamMembersId(UserRepository userRepository) {
+        List<Integer> ids = new ArrayList<>();
+        for (User user : this.getTeamMembers(userRepository))
+            ids.add(user.getId());
+        return ids;
     }
 
     @Override
