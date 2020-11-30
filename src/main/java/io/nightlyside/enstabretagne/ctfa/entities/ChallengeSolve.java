@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 public class ChallengeSolve {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(name="user_id")
@@ -57,5 +57,14 @@ public class ChallengeSolve {
         this.userId = userId;
         this.challengeId = challengeId;
         this.date = date;
+    }
+
+    @Override
+    public String toString() {
+        return "ChallengeSolve{" +
+                "id = " + id +
+                ", userId = " + userId +
+                ", challengeId = " + challengeId +
+                ", date = " + date.toString() + "}";
     }
 }

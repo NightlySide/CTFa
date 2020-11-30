@@ -1,0 +1,58 @@
+<!doctype html>
+<!-- Inspiration : https://demo.ctfd.io/ -->
+<html lang="fr"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/main_layout}"
+      th:with="currentPage='admin'">
+<head>
+    <title>Admin | CTFa</title>
+</head>
+<body>
+
+<div layout:fragment="jumbotron">
+    <div class="jumbotron">
+        <div class="container">
+            <h1>Admin page</h1>
+        </div>
+    </div>
+</div>
+
+<!-- Main container -->
+<div layout:fragment="content" class="container">
+    <!-- If not already in a team -->
+    <div class="row">
+        <div class="col-md-6 offset-md-3 text-center">
+            <p>Welcome on the admin panel of CTFa!</p>
+            <p>Please select a category to manage.</p>
+        </div>
+    </div>
+    <div class="row pt-3 pb-5">
+        <div class="col-md-4 text-center">
+            <div class="card p-2">
+                <a class="card-block stretched-link text-decoration-none" th:href="@{/admin/users}">
+                    <h4 class="card-title"><i class="fa fa-people-carry"></i> Manage Users</h4>
+                    View the list of users and manage them
+                </a>
+            </div>
+        </div>
+        <div class="col-md-4 text-center">
+            <div class="card p-2">
+                <a class="card-block stretched-link text-decoration-none" th:href="@{/admin/teams}">
+                    <h4 class="card-title"><i class="fa fa-users"></i> Manage Teams</h4>
+                    View the list of teams and manage them
+                </a>
+            </div>
+        </div>
+        <div class="col-md-4 text-center">
+            <div class="card p-2">
+                <a class="card-block stretched-link text-decoration-none" th:href="@{/admin/challenges}">
+                    <h4 class="card-title"><i class="fa fa-money-check"></i> Manage Challenges</h4>
+                    View all challenges and create new ones
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

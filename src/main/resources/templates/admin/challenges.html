@@ -1,0 +1,77 @@
+<!doctype html>
+<!-- Inspiration : https://demo.ctfd.io/ -->
+<html lang="fr"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/main_layout}"
+      th:with="currentPage='admin'">
+<head>
+    <title>Manage Challenges | CTFa</title>
+</head>
+<body>
+
+<div layout:fragment="jumbotron">
+    <div class="jumbotron">
+        <div class="container">
+            <h1>Manage Challenges</h1>
+        </div>
+    </div>
+</div>
+
+<!-- Main container -->
+<div layout:fragment="content" class="container">
+
+    <div class="row">
+        <form class="col-sm-12">
+            <div class="form-row">
+                <div class="col-md-2">
+                    <select class="custom-select">
+                        <option value="name" selected>Name</option>
+                        <option value="team">Category</option>
+                    </select>
+                </div>
+                <div class="col-md-8">
+                    <input type="text" class="form-control" placeholder="Search for matching users">
+                </div>
+                <div class="col-md-2">
+                    <a class="form-control btn btn-primary"><i class="fa fa-search"></i></a>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <hr>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <table class="table table-striped table-bordered table-hover">
+                <thead class="thead-dark">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Category</th>
+                    <th scope="col">Score</th>
+                    <th scope="col"># of solves</th>
+                    <th scope="col">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="chall : ${challenges}">
+                    <td scope="row" th:text="${chall.getId()}"></td>
+                    <td th:text="${chall.getTitle()}"></td>
+                    <td th:text="${chall.getCategoryName(challCatRepo)}"></td>
+                    <td th:text="${chall.getScore()}">0</td>
+                    <td th:text="${chall.getNumberOfSolves(challSolveRepo)}">0</td>
+                    <td class="admin-actions-container">
+                        <a class="btn btn-primary admin-action" href="#"><i class="fa fa-edit"></i></a>
+                        <a class="btn btn-secondary admin-action" href="#"><i class="fa fa-eye"></i></a>
+                        <a class="btn btn-danger admin-action" href="#"><i class="fa fa-trash"></i></a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

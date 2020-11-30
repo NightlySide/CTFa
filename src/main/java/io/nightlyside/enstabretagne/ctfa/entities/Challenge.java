@@ -1,5 +1,8 @@
 package io.nightlyside.enstabretagne.ctfa.entities;
 
+import io.nightlyside.enstabretagne.ctfa.repositories.ChallengeCategoryRepository;
+import io.nightlyside.enstabretagne.ctfa.repositories.ChallengeSolveRepository;
+
 import javax.persistence.*;
 
 @Entity
@@ -18,6 +21,7 @@ public class Challenge {
     @Column(name="link_to_file")
     private String linkToFile;
     private String flag;
+    private boolean visible;
 
     public Integer getId() {
         return id;
@@ -68,13 +72,26 @@ public class Challenge {
         this.flag = flag;
     }
 
+    public boolean isVisible() { return visible; }
+    public void setVisible(boolean visible) { this.visible = visible; }
+
+    public String getCategoryName(ChallengeCategoryRepository challCatRepo) {
+        ChallengeCategory challCat = challCatRepo.findById(this.getCategoryId()).get();
+        return challCat.getName();
+    }
+
+    public Integer getNumberOfSolves(ChallengeSolveRepository challengeSolveRepository) {
+        return challengeSolveRepository.countChallengeSolveByChallengeIdEquals(this.getId());
+    }
+
     public Challenge(Integer id,
                      Integer categoryId,
                      String title,
                      Integer score,
                      String description,
                      String linkToFile,
-                     String flag) {
+                     String flag,
+                     boolean visible) {
         this.id = id;
         this.categoryId = categoryId;
         this.title = title;
@@ -82,6 +99,7 @@ public class Challenge {
         this.description = description;
         this.linkToFile = linkToFile;
         this.flag = flag;
+        this.visible = visible;
     }
 
     public Challenge() {}

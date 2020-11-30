@@ -155,6 +155,15 @@ public class User {
         return teamRepository.findById(teamId).get().getTeamname();
     }
 
+    public boolean hasSolvedChallenge(Challenge challenge, ChallengeSolveRepository challengeSolveRepository) {
+        for (ChallengeSolve s : challengeSolveRepository.findAllByUserIdEquals(this.getId())) {
+            if (s.getChallengeId().equals(challenge.getId())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public User(Integer id, String username, String email, String password, Integer teamId) {
         this.id = id;
         this.username = username;

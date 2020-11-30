@@ -25,12 +25,22 @@
             <h3 th:text="${category.getName()}">Category title</h3>
         </div>
         <div class="challenges-row col-md-12">
-            <div class="col-md-3 d-inline-block" th:each="challenge : ${challRepo.findAllByCategoryIdEquals(category.getId())}">
+            <div class="col-md-3 d-inline-block" th:each="challenge : ${challRepo.findAllByCategoryIdEquals(category.getId())}" th:with="solved = ${loggedUser.hasSolvedChallenge(challenge, challSolveRepo)}">
                 <button
+                        th:if="${!solved && challenge.isVisible()}"
                         data-toggle="modal"
                         data-target="#challenge-window"
                         th:attr="data-id=${challenge.getId()}"
                         class="btn btn-dark challenge-button w-100 text-truncate pt-3 mb-2">
+                    <p th:text="${challenge.getTitle()}">Challenge name</p>
+                    <span th:text="${challenge.getScore()}">100</span>
+                </button>
+                <button
+                        th:if="${solved && challenge.isVisible()}"
+                        data-toggle="modal"
+                        data-target="#challenge-window"
+                        th:attr="data-id=${challenge.getId()}"
+                        class="btn btn-success challenge-button w-100 text-truncate pt-3 mb-2">
                     <p th:text="${challenge.getTitle()}">Challenge name</p>
                     <span th:text="${challenge.getScore()}">100</span>
                 </button>
@@ -57,13 +67,21 @@
                     Description of the challenge ...
                 </div>
                 <div class="modal-body" id="challenge-file-download">
-                    <a class="btn btn-info btn-file mb-1 d-inline-block px-2 w-100 text-truncate" href="http://google.fr">
+                    <a class="btn btn-info btn-file mb-1 d-inline-block px-2 w-100 text-truncate" id="file-link" href="http://google.fr">
                         <i class="fa fa-download"></i>
-                        <small>filename.jpg</small>
+                        <small id="file-link-text">Download the attached file</small>
                     </a>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary">Submit</button>
+                    <div id="chall-error-msg" class="col-12 alert alert-danger" role="alert">
+                        Error ...
+                    </div>
+                    <div class="input-group mb-1 col-12">
+                        <input type="text" class="form-control" placeholder="Enter the flag ..." aria-label="Flag input" id="flag-input">
+                        <div class="input-group-append">
+                            <button class="btn btn-primary" type="button" id="check-flag-btn">Send flag</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
