@@ -52,7 +52,8 @@ public class Challenge {
     }
 
     public String getDescription() {
-        return description.replace("\\r\\n", "\n");
+        if (description != null) return description.replace("\\r\\n", "\n");
+        return description;
     }
     public void setDescription(String description) {
         this.description = description;
@@ -102,5 +103,20 @@ public class Challenge {
         this.visible = visible;
     }
 
-    public Challenge() {}
+    public Challenge() {
+    }
+
+    @Override
+    public String toString() {
+        return "Challenge{" +
+                "id=" + id +
+                ", categoryId=" + categoryId +
+                ", title='" + title + '\'' +
+                ", score=" + score +
+                ", description='" + description + '\'' +
+                ", linkToFile='" + linkToFile + '\'' +
+                ", flag='" + flag + '\'' +
+                ", visible=" + visible +
+                '}';
+    }
 }

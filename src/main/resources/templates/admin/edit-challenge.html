@@ -1,0 +1,73 @@
+<!doctype html>
+<!-- Inspiration : https://demo.ctfd.io/ -->
+<html lang="fr"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/main_layout}"
+      th:with="currentPage='admin'">
+<head>
+    <title>Add/Edit Challenges | CTFa</title>
+</head>
+<body>
+
+<div layout:fragment="jumbotron">
+    <div class="jumbotron">
+        <div class="container">
+            <h1>Add/Edit Challenges</h1>
+        </div>
+    </div>
+</div>
+
+<!-- Main container -->
+<div layout:fragment="content" class="container">
+
+    <div class="row">
+        <form class="col-sm-12 col-md-6 offset-md-3" th:action="@{/admin/challenges/save}" th:object="${challenge}" method="post">
+            <input type="hidden" name="id" th:field="*{id}">
+            <div th:if="${param.success}" class="alert alert-info">
+                Challenge created/edited successfully you can safely go back.
+            </div>
+
+            <div class="alert alert-danger"
+                 th:if="${#fields.hasErrors('*')}">
+                <p th:each="err : ${#fields.errors('*')}" th:text="${err}">Validation error</p>
+            </div>
+
+            <div class="form-group">
+                <label for="challengetitle">Title</label>
+                <input type="text" class="form-control" id="challengetitle" aria-describedby="titleHelp" th:field="*{title}">
+                <small id="titleHelp" class="form-text text-muted">Title of this challenge.</small>
+            </div>
+            <div class="form-group">
+                <label for="challengescore">Score</label>
+                <input type="text" class="form-control" id="challengescore" aria-describedby="scoreHelp" th:field="*{score}">
+                <small id="scoreHelp" class="form-text text-muted">Score of the challenge (in points).</small>
+            </div>
+            <div class="form-group">
+                <label for="categoryinput">Category</label>
+                <select th:field="*{categoryId}" id="categoryinput" class="form-control">
+                    <option th:each="cat : ${challCat}" th:value="${cat.getId()}" th:text="${cat.getName()}"
+                            th:selected="${cat.getId().equals(challenge.getCategoryId())}"></option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="descriptioninput">Description</label>
+                <input type="text" class="form-control" id="descriptioninput" aria-describedby="descriptionHelp" th:field="*{description}">
+                <small id="descriptionHelp" class="form-text text-muted">Description of the challenge (markdown).</small>
+            </div>
+            <div class="form-group">
+                <label for="filelink">Link to file</label>
+                <input type="text" class="form-control" id="filelink" aria-describedby="filehelp" th:field="*{linkToFile}">
+                <small id="filehelp" class="form-text text-muted">Link to the file : url (optional).</small>
+            </div>
+            <div class="form-group">
+                <label for="flaginput">Flag</label>
+                <input type="text" class="form-control" id="flaginput" aria-describedby="flaghelp" th:field="*{flag}">
+                <small id="flaghelp" class="form-text text-muted">The flag to win this challenge.</small>
+            </div>
+            <button type="submit" class="btn btn-primary float-right">Submit</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

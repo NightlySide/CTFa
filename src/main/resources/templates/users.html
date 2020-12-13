@@ -22,19 +22,13 @@
     <div layout:fragment="content" class="container">
 
         <div class="row">
-            <form class="col-sm-12">
+            <form class="col-sm-12" method="get">
                 <div class="form-row">
-                    <div class="col-md-2">
-                        <select class="custom-select">
-                            <option value="name" selected>Name</option>
-                            <option value="team">Team</option>
-                        </select>
-                    </div>
-                    <div class="col-md-8">
-                        <input type="text" class="form-control" placeholder="Search for matching users">
+                    <div class="col-md-10">
+                        <input type="text" class="form-control" placeholder="Search for matching users" name="query" th:value="${query}">
                     </div>
                     <div class="col-md-2">
-                        <a class="form-control btn btn-primary"><i class="fa fa-search"></i></a>
+                        <button class="form-control btn btn-primary" type="submit"><i class="fa fa-search"></i></button>
                     </div>
                 </div>
             </form>

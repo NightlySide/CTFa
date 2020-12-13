@@ -33,8 +33,13 @@ public class TeamController {
     private ChallengeSolveRepository challengeSolveRepository;
 
     @GetMapping({"/", "", "/index", "/index.html"})
-    public String teams(Model model) {
-        model.addAttribute("teams", teamRepository.findAll());
+    public String teams(@RequestParam(required = false) String query, Model model) {
+        if (query == null)
+            model.addAttribute("teams", teamRepository.findAll());
+        else
+            model.addAttribute("teams", teamRepository.search(query.toLowerCase()));
+
+        model.addAttribute("query", query);
         model.addAttribute("usersRepo", userRepository);
         model.addAttribute("challRepo", challengeRepository);
         model.addAttribute("challSolveRepo", challengeSolveRepository);

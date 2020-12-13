@@ -46,9 +46,9 @@
                 <tbody>
                     <!-- Triés par date décroissante -->
                     <tr th:each="solve : ${challSolveRepo.findAllByUserIdEquals(user.getId())}">
-                        <td scope="row" th:text="${challRepo.findById(solve.getId()).getTitle()}">Challenge name</td>
+                        <td scope="row" th:text="${challRepo.findById(solve.getChallengeId()).getTitle()}">Challenge name</td>
                         <td th:text="${solve.getPrettyDate()}">20 mars 2020 - 18:05</td>
-                        <td th:text="${challRepo.findById(solve.getId()).getScore()}">150</td>
+                        <td th:text="${challRepo.findById(solve.getChallengeId()).getScore()}">150</td>
                     </tr>
                 </tbody>
             </table>

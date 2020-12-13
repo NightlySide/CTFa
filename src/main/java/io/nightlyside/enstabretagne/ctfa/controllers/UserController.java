@@ -33,8 +33,13 @@ public class UserController {
     private ChallengeSolveRepository challengeSolveRepository;
 
     @GetMapping({"/", "", "/index.html", "/index"})
-    public String users(Model model) {
-        model.addAttribute("users", userRepository.findAll());
+    public String users(@RequestParam(required = false) String query, Model model) {
+        if (query == null)
+            model.addAttribute("users", userRepository.findAll());
+        else
+            model.addAttribute("users", userRepository.search(query.toLowerCase()));
+
+        model.addAttribute("query", query);
         model.addAttribute("teamsRepo", teamRepository);
         model.addAttribute("challRepo", challengeRepository);
         model.addAttribute("challSolveRepo", challengeSolveRepository);
