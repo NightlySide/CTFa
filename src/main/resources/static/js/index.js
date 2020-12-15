@@ -1,4 +1,4 @@
-var countDownDate = new Date("14 dec, 2020 23:55").getTime();
+var countDownDate = new Date("1 jan, 2021 00:01").getTime();
 
 function updateTimer() {
     var now = new Date().getTime();
